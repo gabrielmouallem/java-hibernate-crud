@@ -25,10 +25,9 @@ public class HibernateCountryLanguageDAO {
     public boolean addCountryLanguage (Countrylanguage CountryLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-            Session session;
-            session = dao.getSession();
-            session.beginTransaction();
+            
             dao.save(CountryLanguage);
+            transaction = dao.getSession().beginTransaction();
             transaction.commit();
             return true;
         }
@@ -44,10 +43,10 @@ public class HibernateCountryLanguageDAO {
     public boolean deleteCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
         HibernateDAO dao = new HibernateDAO();
         try {
-          // startTransaction();
+            transaction = dao.getSession().beginTransaction();
             dao.load(CountryLanguage, id);
             dao.delete(CountryLanguage);
-           // commitTransaction();
+            transaction.commit();
             return true;
         } 
         catch (Exception e){
@@ -63,7 +62,7 @@ public class HibernateCountryLanguageDAO {
     public boolean updateCountryLanguage (Countrylanguage countryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-           // startTransaction();
+            transaction = dao.getSession().beginTransaction();
             dao.load(countryLanguage, id);
             if(newLanguage.getCountry() != null)
             countryLanguage.setCountry(newLanguage.getCountry()); 
@@ -72,7 +71,7 @@ public class HibernateCountryLanguageDAO {
             if(newLanguage.getPercentage() != 0.0)
             countryLanguage.setPercentage(newLanguage.getPercentage());
             dao.update(countryLanguage);
-           // commitTransaction();
+            transaction.commit();
             return true;
         } 
         catch (Exception e){

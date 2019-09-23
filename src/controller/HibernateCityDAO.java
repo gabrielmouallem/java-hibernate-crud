@@ -30,7 +30,6 @@ public class HibernateCityDAO {
             return true;
         }
         catch (Exception e){
-            //transaction.rollback();
             JOptionPane.showMessageDialog(null, "ERRO: " + e);
             e.printStackTrace();
             return false;
@@ -43,7 +42,7 @@ public class HibernateCityDAO {
     public boolean deleteCity (City city, int id){
         HibernateDAO dao = new HibernateDAO();
         try {
-            dao.getSession().beginTransaction();
+            transaction = dao.getSession().beginTransaction();
             dao.load(city, id);
             dao.delete(city);
             transaction.commit();

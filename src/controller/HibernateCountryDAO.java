@@ -23,8 +23,8 @@ public class HibernateCountryDAO {
         HibernateDAO dao = new HibernateDAO();
         try {
             dao.save(country);
-            startTransaction();
-            commitTransaction();
+            transaction = dao.getSession().beginTransaction();
+            transaction.commit();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -37,8 +37,8 @@ public class HibernateCountryDAO {
         try {
             dao.load(country, code);
             dao.delete(country);
-            startTransaction();
-            commitTransaction();
+            transaction = dao.getSession().beginTransaction();
+            transaction.commit();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -66,23 +66,13 @@ public class HibernateCountryDAO {
             
             
             dao.update(country);
-            startTransaction();
-            commitTransaction();
+            transaction = dao.getSession().beginTransaction();
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
         dao.closeSession();
     }
-    
-
-    public void startTransaction(){
-        HibernateDAO dao = new HibernateDAO();
-        transaction = dao.getSession().beginTransaction();
-    }
-    
-
-    public void commitTransaction (){
-        transaction.commit();
-    }
+   
 }
 
