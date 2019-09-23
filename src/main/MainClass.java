@@ -5,6 +5,8 @@
  */
 package main;
 
+import controller.HibernateCityDAO;
+import model.City;
 import view.HomeScreen;
 
 /**
@@ -22,6 +24,11 @@ public class MainClass {
         home.dispose();
         home.setUndecorated(true);
         home.setVisible(true);
+        
+        City city = new City (9992, "Cidade Hibernate2", "AFG", "Hibernata", 99999);
+        HibernateCityDAO dao = new HibernateCityDAO();
+        dao.addCity(city);
+        
     }
     
 }

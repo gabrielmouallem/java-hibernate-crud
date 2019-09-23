@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Gabriel/Documents/com231/java-hibernate-crud/src/controller/HibernateDAO.java</file>
+            <file>file:/C:/Users/Gabriel/Documents/com231/java-hibernate-crud/src/main/MainClass.java</file>
+            <file>file:/C:/Users/Gabriel/Documents/com231/java-hibernate-crud/src/model/City.java</file>
             <file>file:/C:/Users/Gabriel/Documents/com231/java-hibernate-crud/src/controller/HibernateCountryDAO.java</file>
+            <file>file:/C:/Users/Gabriel/Documents/com231/java-hibernate-crud/src/controller/HibernateCityDAO.java</file>
         </group>
     </open-files>
 </project-private>

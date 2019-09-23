@@ -13,6 +13,7 @@ package controller;
  */
 import model.City;
 import controller.HibernateDAO;
+import javax.swing.JOptionPane;
 import org.hibernate.Transaction;
 
 public class HibernateCityDAO {
@@ -22,13 +23,15 @@ public class HibernateCityDAO {
     public boolean addCity (City city){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+            transaction = dao.getSession().beginTransaction();
             dao.save(city);
-            commitTransaction();
+            JOptionPane.showMessageDialog(null, "SUCESSO!");
+            transaction.commit();
             return true;
         }
         catch (Exception e){
-            transaction.rollback();
+            //transaction.rollback();
+            JOptionPane.showMessageDialog(null, "ERRO: " + e);
             e.printStackTrace();
             return false;
         }
@@ -40,10 +43,10 @@ public class HibernateCityDAO {
     public boolean deleteCity (City city, int id){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+            dao.getSession().beginTransaction();
             dao.load(city, id);
             dao.delete(city);
-            commitTransaction();
+            transaction.commit();
             return true;
         } 
         catch (Exception e){
@@ -60,7 +63,7 @@ public class HibernateCityDAO {
     public boolean updateCity (City city, int id, City newCity){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+            transaction = dao.getSession().beginTransaction();
             dao.load(city, id);
             
             if(newCity.getName()!= null)
@@ -75,7 +78,7 @@ public class HibernateCityDAO {
             city.setPopulation(newCity.getPopulation());
             
             dao.update(city);
-            commitTransaction();
+            transaction.commit();
             return true;
         } 
         catch (Exception e){
@@ -86,17 +89,6 @@ public class HibernateCityDAO {
         finally {
             dao.closeSession();
         }
-    }
-    
-
-    public void startTransaction(){
-        HibernateDAO dao = new HibernateDAO();
-        transaction = dao.getSession().beginTransaction();
-    }
-    
-
-    public void commitTransaction (){
-        transaction.commit();
     }
 }
 
