@@ -5,8 +5,6 @@
  */
 package view;
 
-import controller.CountryLanguageDAO;
-
 /**
  *
  * @author Gabriel
@@ -150,13 +148,6 @@ public class EditScreen extends javax.swing.JFrame {
 
     private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
-        CountryLanguageDAO dao = new CountryLanguageDAO();
-        String lang = langField.getText();
-        String code = countryCodeField.getText();
-        String strPercentage = percentageField.getText();
-        float percentage = Float.parseFloat(strPercentage);
-        
-        dao.update(code, percentage, lang);
     }//GEN-LAST:event_editButtonMouseClicked
 
     /**

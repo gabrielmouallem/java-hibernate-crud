@@ -5,8 +5,6 @@
  */
 package view;
 
-import controller.CountryLanguageDAO;
-
 /**
  *
  * @author Gabriel
@@ -95,8 +93,6 @@ public class DeleteScreen extends javax.swing.JFrame {
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        CountryLanguageDAO dao = new CountryLanguageDAO();
-        dao.delete(langField.getText());
     }//GEN-LAST:event_addButtonMouseClicked
 
     /**

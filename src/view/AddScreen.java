@@ -5,8 +5,6 @@
  */
 package view;
 
-import connection.ConnectionFactory;
-import controller.CountryLanguageDAO;
 import controller.HibernateCountryLanguageDAO;
 import java.awt.Dimension;
 import java.sql.PreparedStatement;
@@ -163,15 +161,6 @@ public class AddScreen extends javax.swing.JFrame {
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        CountryLanguageDAO dao = new CountryLanguageDAO();
-        
-        String strIsOficial = isOficialComboBox.getSelectedItem().toString();
-        Boolean isOficial = Boolean.parseBoolean(strIsOficial);
-        
-        String strPercentage = percentageField.getText();
-        float percentage = Float.parseFloat(strPercentage);
-        
-        dao.save(countryCodeField.getText(), nameField.getText(), isOficial, percentage);
     }//GEN-LAST:event_addButtonMouseClicked
 
     /**

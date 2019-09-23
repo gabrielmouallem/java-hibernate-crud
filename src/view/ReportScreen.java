@@ -5,9 +5,6 @@
  */
 package view;
 
-import controller.CityDAO;
-import controller.CountryDAO;
-
 /**
  *
  * @author Gabriel
@@ -165,28 +162,11 @@ public class ReportScreen extends javax.swing.JFrame {
 
     private void reportButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButton1MouseClicked
         // TODO add your handling code here:
-        CountryDAO dao = new CountryDAO();
-        
-        String strMin = minXpecComboBox.getSelectedItem().toString();
-        String strMax = maxXpecComboBox.getSelectedItem().toString();
-        
-        float min = Float.parseFloat(strMin);
-        float max = Float.parseFloat(strMax);
-        
-        dao.report(min, max);
+      
     }//GEN-LAST:event_reportButton1MouseClicked
 
     private void reportButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButton2MouseClicked
         // TODO add your handling code here:
-        CityDAO dao = new CityDAO();
-        
-        String strMin = minPopComboBox.getSelectedItem().toString();
-        String strMax = maxPopComboBox.getSelectedItem().toString();
-        
-        int min = Integer.parseInt(strMin);
-        int max = Integer.parseInt(strMax);
-        
-        dao.report(min, max);
     }//GEN-LAST:event_reportButton2MouseClicked
 
     /**

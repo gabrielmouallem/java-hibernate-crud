@@ -5,9 +5,6 @@
  */
 package view;
 
-import controller.CityDAO;
-import controller.CountryDAO;
-import controller.CountryLanguageDAO;
 
 /**
  *
@@ -123,20 +120,14 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchLangButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchLangButtonMouseClicked
         // TODO add your handling code here:
-        CountryLanguageDAO dao = new CountryLanguageDAO();
-        dao.findAll();
     }//GEN-LAST:event_searchLangButtonMouseClicked
 
     private void searchCountryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCountryButtonMouseClicked
         // TODO add your handling code here:
-        CountryDAO dao = new CountryDAO();
-        dao.findAll();
     }//GEN-LAST:event_searchCountryButtonMouseClicked
 
     private void searchCityButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCityButtonMouseClicked
         // TODO add your handling code here:
-        CityDAO dao = new CityDAO();
-        dao.findAll();
     }//GEN-LAST:event_searchCityButtonMouseClicked
 
     /**
