@@ -5,6 +5,21 @@
  */
 package view;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import model.City;
+import model.Country;
+import model.Countrylanguage;
+import model.HibernateUtil;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 
 /**
  *
@@ -120,14 +135,77 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchLangButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchLangButtonMouseClicked
         // TODO add your handling code here:
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        String hql = "From Countrylanguage";
+        Query query = session.createQuery(hql);
+        List<Countrylanguage> list = query.list();
+        Iterator iter = list.iterator();
+        
+        String result = "--------- TODAS AS LÍNGUAS REGISTRADAS: --------- \n\n";
+        result += "LÍNGUA -------- PÁIS ------------ É OFICIAL ---------- (%) \n\n";
+        for (int i=0; i<list.size();i++){
+            result +=  list.get(i).getId().getLanguage()+"\t" + list.get(i).getId().getCountrycode() + "\t"+ list.get(i).isIsofficial()+ "\t"+ list.get(i).getPercentage() +"\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE LÍNGUAS",  
+                                       JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_searchLangButtonMouseClicked
 
     private void searchCountryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCountryButtonMouseClicked
         // TODO add your handling code here:
+                Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        String hql = "From Country";
+        Query query = session.createQuery(hql);
+        List<Country> list = query.list();
+        Iterator iter = list.iterator();
+        
+                String result = "--------- TODOS OS PAÍSES REGISTRADAS: --------- \n\n";
+        result += "NOME, CONTINENTE, POPULAÇÃO, EXPECTATIVA DE VIDA, FORMA DE GOVERNO, CHEFE DE ESTADO\n\n";
+        for (int i=0; i<list.size();i++){
+            result += list.get(i).getName() + "\t\t" + list.get(i).getContinent() + "\t" + list.get(i).getPopulation() + "\t\t" + list.get(i).getLifeexpectancy() + "\t" + list.get(i).getGovernmentform() + "\t\t" + list.get(i).getHeadofstate() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 1500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE PAÍSES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_searchCountryButtonMouseClicked
 
     private void searchCityButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCityButtonMouseClicked
         // TODO add your handling code here:
+                // TODO add your handling code here:
+                Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        String hql = "From City";
+        Query query = session.createQuery(hql);
+        List<City> list = query.list();
+        Iterator iter = list.iterator();
+        
+        String result = "--------- TODAS AS CIDADES REGISTRADAS: --------- \n\n";
+        result += "POPULAÇÃO \t NOME \t PAÍS \t DISTRITO\n\n";
+        for (int i=0; i<list.size();i++){
+            result += list.get(i).getPopulation() + "\t" + list.get(i).getName() + "\t" + list.get(i).getCountrycode() + "\t" + list.get(i).getDistrict() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE CIDADES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_searchCityButtonMouseClicked
 
     /**

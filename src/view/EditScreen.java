@@ -35,18 +35,29 @@ public class EditScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        langField = new javax.swing.JTextField();
         countryCodeField = new javax.swing.JTextField();
         percentageField = new javax.swing.JTextField();
         editButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(29, 50, 88));
         jLabel1.setText("EDITAR LÍNGUA");
+
+        langField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        langField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        langField.setText("LÍNGUA");
+        langField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langFieldActionPerformed(evt);
+            }
+        });
 
         countryCodeField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         countryCodeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -80,27 +91,27 @@ public class EditScreen extends javax.swing.JFrame {
 
         jLabel3.setText("que falam uma determinada língua");
 
-        jLabel4.setText("Para isso passe o country code do país que fala tal língua");
+        jLabel4.setText("Para isso passe o country code");
+
+        jLabel5.setText("e o nome da língua a ser editada");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(percentageField)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                            .addComponent(countryCodeField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel4)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(90, 90, 90)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(langField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(percentageField)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(countryCodeField)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,13 +124,17 @@ public class EditScreen extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(percentageField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel5)
+                .addGap(17, 17, 17)
                 .addComponent(countryCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(langField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,14 +153,19 @@ public class EditScreen extends javax.swing.JFrame {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
-        Query query = session.createQuery("Update Countrylanguage set percentage =:percent" +  " where countrycode= :code");
+        Query query = session.createQuery("Update Countrylanguage set percentage =:percent" +  " where countrycode= :code and language = :lang");
         query.setParameter("percent", Float.parseFloat(percentageField.getText()));
         query.setParameter("code", countryCodeField.getText());
+        query.setParameter("lang", langField.getText());
         query.executeUpdate();
         tr.commit();
         session.close();
         JOptionPane.showMessageDialog(null, "Ação concluída!");
     }//GEN-LAST:event_editButtonMouseClicked
+
+    private void langFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_langFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +209,8 @@ public class EditScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField langField;
     private javax.swing.JTextField percentageField;
     // End of variables declaration//GEN-END:variables
 }
