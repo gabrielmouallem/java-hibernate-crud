@@ -5,6 +5,19 @@
  */
 package view;
 
+import java.awt.Dimension;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import model.City;
+import model.Country;
+import model.HibernateUtil;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  *
  * @author Gabriel
@@ -162,11 +175,53 @@ public class ReportScreen extends javax.swing.JFrame {
 
     private void reportButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButton1MouseClicked
         // TODO add your handling code here:
-      
+      Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        String hql = "From Country where lifeexpectancy > :min and lifeexpectancy < :max";
+        Query query = session.createQuery(hql);
+        query.setParameter("min", Float.parseFloat(minXpecComboBox.getSelectedItem().toString()));
+        query.setParameter("max", Float.parseFloat(maxXpecComboBox.getSelectedItem().toString()));
+        List<Country> list = query.list();
+        Iterator iter = list.iterator();
+        
+                String result = "--------- TODOS OS PAÍSES REGISTRADAS: --------- \n\n";
+        result += "NOME, CONTINENTE, POPULAÇÃO, EXPECTATIVA DE VIDA, FORMA DE GOVERNO, CHEFE DE ESTADO\n\n";
+        for (int i=0; i<list.size();i++){
+            result += list.get(i).getName() + "\t\t" + list.get(i).getContinent() + "\t" + list.get(i).getPopulation() + "\t\t" + list.get(i).getLifeexpectancy() + "\t" + list.get(i).getGovernmentform() + "\t\t" + list.get(i).getHeadofstate() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 1500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE PAÍSES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_reportButton1MouseClicked
 
     private void reportButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButton2MouseClicked
         // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        tr = session.beginTransaction();
+        String hql = "From City where population > :min and population < :max";
+        Query query = session.createQuery(hql);
+        query.setParameter("min", Integer.parseInt(minPopComboBox.getSelectedItem().toString()));
+        query.setParameter("max", Integer.parseInt(maxPopComboBox.getSelectedItem().toString()));
+        List<City> list = query.list();
+        Iterator iter = list.iterator();
+        String result = "--------- CIDADES COM POPULAÇÃO ENTRE "+ minPopComboBox.getSelectedItem() +" E " + maxPopComboBox.getSelectedItem() + " --------- \n\n";
+        result += "CIDADE \t\t POPULAÇÃO\n\n";
+        for (int i=0; i<list.size();i++){
+            result += list.get(i).getName() + "\t\t" + list.get(i).getPopulation() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "RELATÓRIO DE CIDADES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_reportButton2MouseClicked
 
     /**

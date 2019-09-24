@@ -91,12 +91,5 @@ public class HibernateCityDAO {
             dao.closeSession();
         }
     }
-    public void PopulationReport(int value1, int value2) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("From City where population between :num1 and :num2");
-        query.setParameter("num1", value1);
-        query.setParameter("num2", value2);
-        session.close();
-    }
 }
 

@@ -160,7 +160,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchCountryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCountryButtonMouseClicked
         // TODO add your handling code here:
-                Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
         String hql = "From Country";
@@ -184,8 +184,8 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchCityButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCityButtonMouseClicked
         // TODO add your handling code here:
-                // TODO add your handling code here:
-                Session session = HibernateUtil.getSessionFactory().openSession();
+        // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
         tr = session.beginTransaction();
         String hql = "From City";

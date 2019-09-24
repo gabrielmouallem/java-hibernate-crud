@@ -76,12 +76,6 @@ public class HibernateCountryDAO {
         }
         dao.closeSession();
     }
-    public void LifeExpectancyReport(int value){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("From Country where lifeexpectancy > :num");
-        query.setParameter("num", value);
-        session.close();
-    }
    
 }
 
