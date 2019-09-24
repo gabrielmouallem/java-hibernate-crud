@@ -29,12 +29,10 @@ public class HibernateCityDAO {
         try {
             transaction = dao.getSession().beginTransaction();
             dao.save(city);
-            JOptionPane.showMessageDialog(null, "SUCESSO!");
             transaction.commit();
             return true;
         }
         catch (Exception e){
-            JOptionPane.showMessageDialog(null, "ERRO: " + e);
             e.printStackTrace();
             return false;
         }

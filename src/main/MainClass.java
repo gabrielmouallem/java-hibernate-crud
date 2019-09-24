@@ -25,10 +25,6 @@ public class MainClass {
         home.setUndecorated(true);
         home.setVisible(true);
         
-        City city = new City (9992, "Cidade Hibernate2", "AFG", "Hibernata", 99999);
-        HibernateCityDAO dao = new HibernateCityDAO();
-        dao.addCity(city);
-        
     }
     
 }
