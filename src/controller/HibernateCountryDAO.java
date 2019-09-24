@@ -13,6 +13,9 @@ package controller;
  */
 import model.Country;
 import controller.HibernateDAO;
+import model.HibernateUtil;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class HibernateCountryDAO {
@@ -72,6 +75,12 @@ public class HibernateCountryDAO {
             e.printStackTrace();
         }
         dao.closeSession();
+    }
+    public void LifeExpectancyReport(int value){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("From Country where lifeexpectancy > :num");
+        query.setParameter("num", value);
+        session.close();
     }
    
 }
